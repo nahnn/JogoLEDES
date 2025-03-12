@@ -1,15 +1,104 @@
-[gd_scene load_steps=4 format=3 uid="uid://bn0uv3752brx4"]
+[gd_scene load_steps=9 format=3 uid="uid://bn0uv3752brx4"]
 
+[ext_resource type="Script" path="res://Scenes/Player/Player.cs" id="1_8gtv4"]
 [ext_resource type="Texture2D" uid="uid://b5qyru5puvl2" path="res://Assets/Player/Player.png" id="1_mjpbd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qk2e8"]
 size = Vector2(37, 124)
 
+[sub_resource type="Animation" id="Animation_6d7es"]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_mjpbd")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_f6co3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_mjpbd")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_20r8k"]
+_data = {
+"Idle": SubResource("Animation_6d7es"),
+"RESET": SubResource("Animation_f6co3")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qmhnd"]
+size = Vector2(13, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lplxr"]
 size = Vector2(13, 120)
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 10
+script = ExtResource("1_8gtv4")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(0, -64)
@@ -20,6 +109,9 @@ position = Vector2(-3.5, -62)
 shape = SubResource("RectangleShape2D_qk2e8")
 
 [node name="Anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_20r8k")
+}
 
 [node name="WallDetector" type="Area2D" parent="."]
 collision_layer = 0
@@ -29,4 +121,12 @@ collision_mask = 2
 position = Vector2(26.5, -63)
 shape = SubResource("RectangleShape2D_qmhnd")
 
-[node name="DashTimer" type="Timer" parent="."]
+[node name="ItemsDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemsDetector"]
+position = Vector2(26.5, -63)
+shape = SubResource("RectangleShape2D_lplxr")
+
+[node name="DashCooldownTimer" type="Timer" parent="."]

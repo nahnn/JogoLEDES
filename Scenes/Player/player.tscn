@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://bn0uv3752brx4"]
+
+[ext_resource type="Texture2D" uid="uid://b5qyru5puvl2" path="res://Assets/Player/Player.png" id="1_mjpbd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qk2e8"]
+size = Vector2(37, 124)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qmhnd"]
+size = Vector2(13, 120)
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 10
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -64)
+texture = ExtResource("1_mjpbd")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(-3.5, -62)
+shape = SubResource("RectangleShape2D_qk2e8")
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+
+[node name="WallDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallDetector"]
+position = Vector2(26.5, -63)
+shape = SubResource("RectangleShape2D_qmhnd")
+
+[node name="DashTimer" type="Timer" parent="."]

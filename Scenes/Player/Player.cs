@@ -17,13 +17,17 @@ public partial class Player : CharacterBody2D
 	private state _state;
 	private float _initialMoveSpeed = 500.0f;
 	private float _maxMoveSpeed = 1500.0f;
-	private float _currentSpeed;
+	private float _currentHSpeed;
 	private float _acelleration = 1000.0f;
 	private float _dashSpeed = 2000.0f;
-	private bool _canJump = true;
+	private float _jumpSpeed = -225.0f;
+	private float _currentVSpeed = 0;
+	private float _gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+	private bool _canJump;
+	private int _jumpCount = 1;
 	private bool _canDash = true;
 	private Godot.Vector2 _input = Godot.Vector2.Zero;
-	private Godot.Vector2 _dir;
+	private Godot.Vector2 _prevDir;
 	private Godot.Vector2 _velocity;
 	
 	// Childs variables
@@ -51,8 +55,10 @@ public partial class Player : CharacterBody2D
 	{
 		switch (_state){
 			case state.JUMPING:
+				Jumping(delta);
 				break;
 			case state.FALLING:
+				Falling(delta);
 				break;
 			case state.DASHING:
 				break;
@@ -72,24 +78,64 @@ public partial class Player : CharacterBody2D
 	// Function that matches the moving state
 	private void Moving(double delta)
 	{
-		// Getting player input and setting direction
-		_dir = _input;
-		_input.X = Input.GetAxis("ui_left", "ui_right");
 		
-		// Dealling with horizontal speed
-		HorMove(delta);
+		// If player is on floor, than he can jump
+		if (IsOnFloor()){
+			// Getting player input and setting direction
+			_prevDir = _input;
+			_input.X = Input.GetAxis("ui_left", "ui_right");
+		
+			// Dealling with horizontal speed
+			HorMove(delta);
+
+			_canJump = true;
+			_velocity.Y = 0;
+			Velocity = _velocity;
+		}
+		else{
+			_state = state.FALLING;
+		}
+		
+
+		// if player press the jump button and can jump, the state will be jumping
+		if (Input.IsActionJustPressed("ui_jump") && _canJump){
+			_state = state.JUMPING;
+			_canJump = false;
+		}
+
+		// Fliping
+		Flip();
 	}
 
 	// Function that matches the jumping state
 	private void Jumping(double delta)
 	{
+		// In jump state, player still can move horizontally
+		HorMove(delta);
 
+		// Making player move vertically
+		_velocity.Y = _jumpSpeed * (float)delta;
+		Velocity = _velocity;
+		if (!IsOnFloor()){
+			_state = state.FALLING;
+		}
 	}
 
 	// Function that matches the falling state
 	private void Falling(double delta)
 	{
+		// In falling state, player still can move horizontaly
+		HorMove(delta);
 
+		// Making player fall
+		_currentVSpeed += _gravity;
+		_velocity.Y = _currentVSpeed * (float)delta;
+		Velocity = _velocity;
+
+		// Back to state moving
+		if (IsOnFloor()){
+			_state = state.MOVING;
+		}
 	}
 
 	// Function that matches the dashing state
@@ -104,21 +150,27 @@ public partial class Player : CharacterBody2D
 
 	}
 
+	// Callback Function of AnimationPlayer animation finished signal
+	private void OnAnimAnimationFinished(string animName)
+	{
+
+	}
+
 	// Function that deals with the horizontal movement
 	private void HorMove(double delta)
 	{
 		
 		// if the movement is just starting
-		if (_dir.X == 0 && _input.X != 0){
+		if (_prevDir.X == 0 && _input.X != 0){
 			// then, start from inicial velocity
 			_velocity.X = _input.X * _initialMoveSpeed * (float)delta;
-			_currentSpeed = _velocity.X;
+			_currentHSpeed = _velocity.X;
 		}
-		else if (_dir.X != 0 && _input.X != 0){
+		else if (_prevDir.X != 0 && _input.X != 0){
 			// if the player was moving and didnt reached the max velocity, then just aceleratte 
 			if (_velocity.X < _maxMoveSpeed){
-				_currentSpeed += _acelleration;
-				_velocity.X = _input.X * _currentSpeed * (float)delta;
+				_currentHSpeed += _acelleration;
+				_velocity.X = _input.X * _currentHSpeed * (float)delta;
 			}
 			else{
 				// Otherwise, set velocity to the max velocity
@@ -143,5 +195,26 @@ public partial class Player : CharacterBody2D
 
 	// Function that flips the player
 	private void Flip()
-	{}	
+	{		
+		Godot.Vector2 wallDetectorScale = _wallDetector.Scale;
+		Godot.Vector2 itemsDetectorScale = _itemsDetector.Scale;
+
+		if (_input.X != 0){
+			if (_input.X >= 0){
+				wallDetectorScale.X = 1;
+				_wallDetector.Scale = wallDetectorScale;
+				itemsDetectorScale.X = 1;
+				_itemsDetector.Scale = itemsDetectorScale;
+
+			}
+			else{
+				wallDetectorScale.X = -1;
+				_wallDetector.Scale = wallDetectorScale;
+				itemsDetectorScale.X = -1;
+				_itemsDetector.Scale = itemsDetectorScale;
+			}
+			// Fliping sprite
+			_sprite.FlipH = _input.X < 0;
+		}
+	}	
 }

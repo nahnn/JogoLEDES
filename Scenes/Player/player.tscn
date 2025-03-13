@@ -130,3 +130,5 @@ position = Vector2(26.5, -63)
 shape = SubResource("RectangleShape2D_lplxr")
 
 [node name="DashCooldownTimer" type="Timer" parent="."]
+
+[connection signal="animation_finished" from="Anim" to="." method="OnAnimAnimationFinished"]

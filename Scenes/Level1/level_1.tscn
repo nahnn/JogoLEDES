@@ -1,8 +1,65 @@
-[gd_scene load_steps=2 format=3 uid="uid://bjkle43vhk8fk"]
+[gd_scene load_steps=7 format=3 uid="uid://bjkle43vhk8fk"]
 
 [ext_resource type="PackedScene" uid="uid://bn0uv3752brx4" path="res://Scenes/Player/player.tscn" id="1_uafk7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lknrg"]
+size = Vector2(2560, 104)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_naga2"]
+size = Vector2(122, 211.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_linsi"]
+size = Vector2(290.5, 696)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jrl82"]
+size = Vector2(150.5, 111)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_km446"]
+size = Vector2(192, 78.5)
 
 [node name="Level1" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_uafk7")]
-position = Vector2(64, 167)
+position = Vector2(701, 1293)
+
+[node name="Collision" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Collision"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision/StaticBody2D"]
+position = Vector2(1286, 1377)
+shape = SubResource("RectangleShape2D_lknrg")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Collision"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision/StaticBody2D2"]
+position = Vector2(912, 1217.75)
+shape = SubResource("RectangleShape2D_naga2")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Collision"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision/StaticBody2D3"]
+position = Vector2(145.75, 975)
+shape = SubResource("RectangleShape2D_linsi")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Collision"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision/StaticBody2D4"]
+position = Vector2(468, 1096)
+shape = SubResource("RectangleShape2D_jrl82")
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="Collision"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision/StaticBody2D5"]
+position = Vector2(769, 711)
+shape = SubResource("RectangleShape2D_km446")

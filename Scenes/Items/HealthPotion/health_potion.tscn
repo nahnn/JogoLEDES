@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://00onrkpnahnl"]
+
+[ext_resource type="Texture2D" uid="uid://bb07bu22ucham" path="res://Assets/HealthPotion.png" id="1_idngn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vruan"]
+size = Vector2(64, 64)
+
+[node name="HealthPotion" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_idngn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_vruan")

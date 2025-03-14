@@ -13,6 +13,10 @@ public partial class Player : CharacterBody2D
 	}
 
 
+	// Declaring status properties
+	private float _health = 10.0f;
+	
+
 	// Declaring move properties
 	private state _state;
 	private float _initialMoveSpeed = 500.0f;
@@ -20,9 +24,9 @@ public partial class Player : CharacterBody2D
 	private float _currentHSpeed;
 	private float _acelleration = 1000.0f;
 	private float _dashSpeed = 2000.0f;
-	private float _jumpSpeed = -225.0f;
+	private float _jumpSpeed = -50000.0f;
 	private float _currentVSpeed = 0;
-	private float _gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+	private float _gravity = 850.0f;
 	private bool _canJump;
 	private int _jumpCount = 1;
 	private bool _canDash = true;
@@ -36,6 +40,8 @@ public partial class Player : CharacterBody2D
 	private Area2D _itemsDetector;
 	private AnimationPlayer _anim;
 	private Timer _dashCooldown;
+	private Timer _jumpTimer;
+	private Inventory _inventory;
 
 	public override void _Ready()
 	{
@@ -45,10 +51,13 @@ public partial class Player : CharacterBody2D
 		_itemsDetector = GetNode<Area2D>("ItemsDetector");
 		_anim = GetNode<AnimationPlayer>("Anim");
 		_dashCooldown = GetNode<Timer>("DashCooldownTimer");
+		_jumpTimer = GetNode<Timer>("JumpTimer");
+		_inventory = GetNode<Inventory>("Inventory");
 
 		// Setting inicial behaviors
 		_state = (int)state.MOVING;
 		PlayAnim("Idle");
+		_inventory.Hide();
 	}
 
 	public override void _Process(double delta)
@@ -81,13 +90,8 @@ public partial class Player : CharacterBody2D
 		
 		// If player is on floor, than he can jump
 		if (IsOnFloor()){
-			// Getting player input and setting direction
-			_prevDir = _input;
-			_input.X = Input.GetAxis("ui_left", "ui_right");
-		
 			// Dealling with horizontal speed
 			HorMove(delta);
-
 			_canJump = true;
 			_velocity.Y = 0;
 			Velocity = _velocity;
@@ -101,6 +105,12 @@ public partial class Player : CharacterBody2D
 		if (Input.IsActionJustPressed("ui_jump") && _canJump){
 			_state = state.JUMPING;
 			_canJump = false;
+			_jumpTimer.Start();
+		}
+
+		// if player press inventory button, then the inventory opens or closes
+		if (Input.IsActionJustPressed("ui_inventory")){
+			_inventory.Visible = !_inventory.Visible;
 		}
 
 		// Fliping
@@ -116,9 +126,7 @@ public partial class Player : CharacterBody2D
 		// Making player move vertically
 		_velocity.Y = _jumpSpeed * (float)delta;
 		Velocity = _velocity;
-		if (!IsOnFloor()){
-			_state = state.FALLING;
-		}
+		
 	}
 
 	// Function that matches the falling state
@@ -150,6 +158,13 @@ public partial class Player : CharacterBody2D
 
 	}
 
+	// Callback Function of JumpTimer timeout signal
+	private void OnJumpTimerTimeout()
+	{
+		// When the jump time is over, go to falling state
+		_state = state.FALLING;
+	}
+
 	// Callback Function of AnimationPlayer animation finished signal
 	private void OnAnimAnimationFinished(string animName)
 	{
@@ -159,7 +174,10 @@ public partial class Player : CharacterBody2D
 	// Function that deals with the horizontal movement
 	private void HorMove(double delta)
 	{
-		
+		// Getting player input and setting direction
+		_prevDir = _input;
+		_input.X = Input.GetAxis("ui_left", "ui_right");
+
 		// if the movement is just starting
 		if (_prevDir.X == 0 && _input.X != 0){
 			// then, start from inicial velocity
@@ -216,5 +234,6 @@ public partial class Player : CharacterBody2D
 			// Fliping sprite
 			_sprite.FlipH = _input.X < 0;
 		}
+		return;
 	}	
 }

@@ -130,14 +130,16 @@ collision_mask = 8
 position = Vector2(0.5, -63)
 shape = SubResource("RectangleShape2D_lplxr")
 
-[node name="DashCooldownTimer" type="Timer" parent="."]
+[node name="DashTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
 
 [node name="JumpTimer" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
 
 [node name="Camera" type="Camera2D" parent="."]
-zoom = Vector2(0.7, 0.7)
+zoom = Vector2(0.5, 0.5)
 drag_horizontal_enabled = true
 drag_left_margin = 1.0
 drag_top_margin = 1.0
@@ -151,4 +153,5 @@ editor_draw_drag_margin = true
 [connection signal="area_exited" from="WallDetector" to="." method="OnWallDetectorAreaExited"]
 [connection signal="area_entered" from="ItemsDetector" to="." method="OnItemsDetectorAreaEntered"]
 [connection signal="area_exited" from="ItemsDetector" to="." method="OnItemsDetectorAreaExited"]
+[connection signal="timeout" from="DashTimer" to="." method="OnDashTimerTimeout"]
 [connection signal="timeout" from="JumpTimer" to="." method="OnJumpTimerTimeout"]

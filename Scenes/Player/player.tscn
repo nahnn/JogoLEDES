@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://bn0uv3752brx4"]
+[gd_scene load_steps=9 format=3 uid="uid://bn0uv3752brx4"]
 
 [ext_resource type="Script" path="res://Scenes/Player/Player.cs" id="1_8gtv4"]
 [ext_resource type="Texture2D" uid="uid://b5qyru5puvl2" path="res://Assets/Player/Player.png" id="1_mjpbd"]
-[ext_resource type="PackedScene" uid="uid://clnkuwj0okrju" path="res://Scenes/Inventory/Inventory.tscn" id="3_6owd0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qk2e8"]
 size = Vector2(37, 124)
@@ -92,10 +91,10 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qmhnd"]
-size = Vector2(13, 120)
+size = Vector2(22, 74)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lplxr"]
-size = Vector2(13, 120)
+size = Vector2(65, 120)
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 10
@@ -119,15 +118,16 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallDetector"]
-position = Vector2(26.5, -63)
+position = Vector2(22, -62)
 shape = SubResource("RectangleShape2D_qmhnd")
 
 [node name="ItemsDetector" type="Area2D" parent="."]
-collision_layer = 0
+visible = false
+collision_layer = 128
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemsDetector"]
-position = Vector2(26.5, -63)
+position = Vector2(0.5, -63)
 shape = SubResource("RectangleShape2D_lplxr")
 
 [node name="DashCooldownTimer" type="Timer" parent="."]
@@ -136,14 +136,19 @@ shape = SubResource("RectangleShape2D_lplxr")
 wait_time = 0.3
 one_shot = true
 
-[node name="Inventory" parent="." instance=ExtResource("3_6owd0")]
-
 [node name="Camera" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
+zoom = Vector2(0.7, 0.7)
 drag_horizontal_enabled = true
-drag_right_margin = 0.52
+drag_left_margin = 1.0
+drag_top_margin = 1.0
+drag_right_margin = 1.0
+drag_bottom_margin = 1.0
 editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [connection signal="animation_finished" from="Anim" to="." method="OnAnimAnimationFinished"]
+[connection signal="area_entered" from="WallDetector" to="." method="OnWallDetectorAreaEntered"]
+[connection signal="area_exited" from="WallDetector" to="." method="OnWallDetectorAreaExited"]
+[connection signal="area_entered" from="ItemsDetector" to="." method="OnItemsDetectorAreaEntered"]
+[connection signal="area_exited" from="ItemsDetector" to="." method="OnItemsDetectorAreaExited"]
 [connection signal="timeout" from="JumpTimer" to="." method="OnJumpTimerTimeout"]

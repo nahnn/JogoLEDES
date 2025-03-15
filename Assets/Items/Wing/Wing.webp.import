@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://db8ngvgvbtgdl"
-path="res://.godot/imported/Inventory.png-efe1a49ff0f8f623914c795d192b009a.ctex"
+uid="uid://sxqpgu2c80f4"
+path="res://.godot/imported/Wing.webp-b6b941af4c740525c0c705b5eb86b17b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Inventory/Inventory.png"
-dest_files=["res://.godot/imported/Inventory.png-efe1a49ff0f8f623914c795d192b009a.ctex"]
+source_file="res://Assets/Items/Wing/Wing.webp"
+dest_files=["res://.godot/imported/Wing.webp-b6b941af4c740525c0c705b5eb86b17b.ctex"]
 
 [params]
 

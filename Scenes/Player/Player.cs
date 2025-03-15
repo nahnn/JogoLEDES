@@ -13,6 +13,7 @@ public partial class Player : CharacterBody2D
 	}
 
 
+
 	// Declaring status properties
 	private float _health = 10.0f;
 	
@@ -22,18 +23,26 @@ public partial class Player : CharacterBody2D
 	private float _initialMoveSpeed = 500.0f;
 	private float _maxMoveSpeed = 1500.0f;
 	private float _currentHSpeed;
-	private float _acelleration = 1000.0f;
+	private float _acelleration = 1200.0f;
 	private float _dashSpeed = 2000.0f;
-	private float _jumpSpeed = -50000.0f;
+	private bool _canDash = true;
+	private float _jumpSpeed = -100000.0f;
 	private float _currentVSpeed = 0;
-	private float _gravity = 850.0f;
+	private float _gravity = 5000.0f;
 	private bool _canJump;
 	private int _jumpCount = 1;
-	private bool _canDash = true;
+	private float _climbSpeed = 7500.0f;
+	private bool _canClimb = false;
+	private bool _canColect = false;
 	private Godot.Vector2 _input = Godot.Vector2.Zero;
 	private Godot.Vector2 _prevDir;
 	private Godot.Vector2 _velocity;
-	
+
+	// Nodes variables
+	private Area2D wall; // last wall area identified
+
+	private Area2D item; // last item instance identified
+
 	// Childs variables
 	private Sprite2D _sprite;
 	private Area2D _wallDetector;
@@ -41,7 +50,10 @@ public partial class Player : CharacterBody2D
 	private AnimationPlayer _anim;
 	private Timer _dashCooldown;
 	private Timer _jumpTimer;
-	private Inventory _inventory;
+	
+
+	// Getting custom signals variable
+	private CustomSignals _customSignals;
 
 	public override void _Ready()
 	{
@@ -52,12 +64,14 @@ public partial class Player : CharacterBody2D
 		_anim = GetNode<AnimationPlayer>("Anim");
 		_dashCooldown = GetNode<Timer>("DashCooldownTimer");
 		_jumpTimer = GetNode<Timer>("JumpTimer");
-		_inventory = GetNode<Inventory>("Inventory");
+	
+		// Getting the custom signal reff
+		_customSignals = GetNode<CustomSignals>("/root/CustomSignals");
 
 		// Setting inicial behaviors
 		_state = (int)state.MOVING;
 		PlayAnim("Idle");
-		_inventory.Hide();
+		
 	}
 
 	public override void _Process(double delta)
@@ -72,6 +86,7 @@ public partial class Player : CharacterBody2D
 			case state.DASHING:
 				break;
 			case state.CLIMBING:
+				Climbing(delta);
 				break;
 			default:
 				Moving(delta);
@@ -90,11 +105,11 @@ public partial class Player : CharacterBody2D
 		
 		// If player is on floor, than he can jump
 		if (IsOnFloor()){
-			// Dealling with horizontal speed
-			HorMove(delta);
+			// Dealling with horizontal move
 			_canJump = true;
 			_velocity.Y = 0;
-			Velocity = _velocity;
+			_currentVSpeed = 0;
+			HorMove(delta);
 		}
 		else{
 			_state = state.FALLING;
@@ -108,9 +123,18 @@ public partial class Player : CharacterBody2D
 			_jumpTimer.Start();
 		}
 
-		// if player press inventory button, then the inventory opens or closes
-		if (Input.IsActionJustPressed("ui_inventory")){
-			_inventory.Visible = !_inventory.Visible;
+		// if player press the climb button
+		if (Input.IsActionJustPressed("ui_climb") && _canClimb){
+			_state = state.CLIMBING;
+			GlobalPosition = wall.GetNode<Marker2D>("Marker").GlobalPosition;
+			_velocity.X = 0;
+		}
+
+		// if player get an item
+		if (Input.IsActionJustPressed("ui_interact") && _canColect){
+			// Emiting signal and deleting item
+			_customSignals.EmitSignal(CustomSignals.SignalName.GotItem, item);
+			
 		}
 
 		// Fliping
@@ -122,11 +146,12 @@ public partial class Player : CharacterBody2D
 	{
 		// In jump state, player still can move horizontally
 		HorMove(delta);
-
+		
 		// Making player move vertically
 		_velocity.Y = _jumpSpeed * (float)delta;
-		Velocity = _velocity;
-		
+		Velocity = _velocity;	
+
+		Flip();	
 	}
 
 	// Function that matches the falling state
@@ -144,6 +169,8 @@ public partial class Player : CharacterBody2D
 		if (IsOnFloor()){
 			_state = state.MOVING;
 		}
+
+		Flip();
 	}
 
 	// Function that matches the dashing state
@@ -155,14 +182,60 @@ public partial class Player : CharacterBody2D
 	// Function that matches the climbing state
 	private void Climbing(double delta)
 	{
+		// Dealing vertical move
+		_canJump = true;
+		VerClimbMove(delta);
+
+		// if player reach the floor
+		if (_input.Y > 0 && IsOnFloor()){
+			_state = state.MOVING;
+		}
+		
+		if (Input.IsActionJustPressed("ui_jump")){
+			_state = state.JUMPING;
+			_canJump = false;
+			_jumpTimer.Start();
+		}
+		
+		GD.Print(Velocity);
+	}
+
+	// Callback function of wall detector shape entered signal
+	private void OnWallDetectorAreaEntered(Area2D area)
+	{	
+		_canClimb = true;
+		wall = area;		
+		GD.Print("Sinal");
+	}
+
+	// Callback function of wall detector shape exited signal
+	private void OnWallDetectorAreaExited(Area2D area)
+	{
+		_canClimb = false;
+		if (_state == state.CLIMBING){
+			_state = state.JUMPING;
+			_jumpTimer.Start();
+		}
+	}
+
+	// Callback function of item detector shape entered signal
+	private void OnItemsDetectorAreaEntered(Area2D area)
+	{
+		_canColect = true;
+		item = area;
+	}
+
+	private void OnItemsDetectorAreaExited(Area2D area)
+	{
 
 	}
 
 	// Callback Function of JumpTimer timeout signal
 	private void OnJumpTimerTimeout()
 	{
-		// When the jump time is over, go to falling state
+		// When the jump time is over, go to falling state with a inicial vSpeed
 		_state = state.FALLING;
+		_currentVSpeed = 1200.0f;
 	}
 
 	// Callback Function of AnimationPlayer animation finished signal
@@ -201,6 +274,18 @@ public partial class Player : CharacterBody2D
 		}
 		Velocity = _velocity;
 		return;
+	}
+
+	// Function that deals with player's vertical movement when climbing
+	private void VerClimbMove(double delta)
+	{
+		// Setting player's velocity component X to zero and getting input
+		_velocity.X = 0;
+		_input.Y = Input.GetAxis("ui_up", "ui_down");
+
+		_velocity.Y = _input.Y * _climbSpeed * (float)delta;
+		Velocity = _velocity;
+
 	}
 
 	// Function that plays an animation of the node

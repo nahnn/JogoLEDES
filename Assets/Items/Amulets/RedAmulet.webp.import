@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cb5eu5o012eyx"
-path="res://.godot/imported/Inventory_amuletes.png-36861c4c8f4612880a7a3749d72742b6.ctex"
+uid="uid://dq6mkhyi72484"
+path="res://.godot/imported/RedAmulet.webp-0c24ba3666c0d89cc00d8fa43f788a69.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Inventory/Inventory_amuletes.png"
-dest_files=["res://.godot/imported/Inventory_amuletes.png-36861c4c8f4612880a7a3749d72742b6.ctex"]
+source_file="res://Assets/Items/Amulets/RedAmulet.webp"
+dest_files=["res://.godot/imported/RedAmulet.webp-0c24ba3666c0d89cc00d8fa43f788a69.ctex"]
 
 [params]
 

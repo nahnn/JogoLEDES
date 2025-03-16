@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://00onrkpnahnl"]
 
 [ext_resource type="Script" path="res://Scenes/HealthPotion/HealthPotion.cs" id="1_bfnew"]
-[ext_resource type="Texture2D" uid="uid://bb07bu22ucham" path="res://Assets/HealthPotion.png" id="1_idngn"]
+[ext_resource type="Texture2D" uid="uid://bb07bu22ucham" path="res://Assets/Items/Health Potion/HealthPotion.png" id="1_idngn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1u3ni"]
 radius = 37.8319

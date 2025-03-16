@@ -15,7 +15,8 @@ public partial class Player : CharacterBody2D
 
 
 	// Declaring status properties
-	private float _health = 10.0f;
+	private float _health = 3.0f;
+	private float _maxHealth = 10.0f;
 	
 
 	// Declaring move properties
@@ -57,8 +58,10 @@ public partial class Player : CharacterBody2D
 	private AnimationPlayer _anim;
 	private Timer _dashTimer;
 	private Timer _jumpTimer;
+	private Hud _hud;
+	private LifeBar _lifeBar;
+	private Inventory _inventory;
 	
-
 	// Getting custom signals variable
 	private CustomSignals _customSignals;
 
@@ -71,13 +74,17 @@ public partial class Player : CharacterBody2D
 		_anim = GetNode<AnimationPlayer>("Anim");
 		_dashTimer = GetNode<Timer>("DashTimer");
 		_jumpTimer = GetNode<Timer>("JumpTimer");
-	
+		_hud = GetNode<Hud>("HUD");
+		_lifeBar = GetNode<LifeBar>("HUD/LifeBar");
+		_inventory = GetNode<Inventory>("HUD/Inventory");
+
 		// Getting the custom signal reff
 		_customSignals = GetNode<CustomSignals>("/root/CustomSignals");
 
 		// Setting inicial behaviors
 		_state = (int)state.MOVING;
 		PlayAnim("Idle");
+		UpdateHealth();
 		
 	}
 
@@ -124,18 +131,12 @@ public partial class Player : CharacterBody2D
 			_state = state.FALLING;
 		}
 		
+		// actions
 		JumpInput();
 		ClimbInput();
 		DashInput();
-
-		// if player get an item
-		if (Input.IsActionJustPressed("ui_interact") && _canColect){
-			// Emiting signal and deleting item
-			_customSignals.EmitSignal(CustomSignals.SignalName.GotItem, item);
-			
-		}
-
-		// Fliping
+		CollectItem();
+		UseItem();
 		Flip();
 	}
 
@@ -179,7 +180,7 @@ public partial class Player : CharacterBody2D
 		// does the dash at the direction that player is moving
 		_velocity = _input * (float)delta;
 		Velocity = _velocity;
-		GD.Print(Velocity);
+		
 	}
 
 	// Function that matches the climbing state
@@ -201,7 +202,7 @@ public partial class Player : CharacterBody2D
 	{	
 		_canClimb = true;
 		wall = area;		
-		GD.Print("Sinal");
+		
 	}
 
 	// Callback function of wall detector shape exited signal
@@ -223,7 +224,7 @@ public partial class Player : CharacterBody2D
 
 	private void OnItemsDetectorAreaExited(Area2D area)
 	{
-
+		
 	}
 
 	// Callback Function of JumpTimer timeout signal
@@ -320,6 +321,7 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
+	// Function that switches to Jump
 	private void JumpInput()
 	{
 		// if player press the jump button and can jump, the state will be jumping
@@ -328,6 +330,57 @@ public partial class Player : CharacterBody2D
 			_canJump = false;
 			_jumpTimer.Start();
 		}
+	}
+
+	// Function that collects a item
+	private void CollectItem()
+	{
+		// if player get an item
+		if (Input.IsActionJustPressed("ui_interact") && _canColect){
+			// Emiting signal and deleting item
+			_customSignals.EmitSignal(CustomSignals.SignalName.GotItem, item);
+			item.QueueFree();
+		}
+	}
+
+	// Function that interacts with a item on inventory
+	private void UseItem()
+	{
+		// variable that holds current slot
+		var slot = _inventory._slots[_inventory._currentPosition];
+		if (Input.IsActionJustPressed("ui_action") && !slot.IsEmpty())
+		{
+			// Matching behavior with item
+			switch(slot._name){
+				default:
+					// default case will be the health potion case
+					IncreaseHealth();
+					slot.DecreaseNumber();
+					break;
+			}
+		}
+	}
+
+	// Function that increases health
+	private void IncreaseHealth()
+	{
+		// the unic form of increasing health will be health potions
+		if (_health < _maxHealth){
+			HealthPotion potion = new HealthPotion();
+			_health += potion._cureAmount;
+			UpdateHealth();
+		}
+	}
+
+	// Function that updates health
+	private void UpdateHealth()
+	{
+		Godot.Vector2 lifeBarSize = new Godot.Vector2(0, 32);
+		if (_health >= _maxHealth){
+			_health = _maxHealth;
+		}
+		lifeBarSize.X = 323 * (_health/_maxHealth);
+		_lifeBar._life.Size = lifeBarSize;
 	}
 
 	// Function that plays an animation of the node

@@ -15,7 +15,7 @@ public partial class Player : CharacterBody2D
 
 
 	// Declaring status properties
-	private float _health = 3.0f;
+	private float _health = 10.0f;
 	private float _maxHealth = 10.0f;
 	
 
@@ -35,7 +35,7 @@ public partial class Player : CharacterBody2D
 	private bool _canDash = true;
 
 	// Jump/ falling state (vertical moves)
-	private float _jumpSpeed = -70000.0f;
+	private float _jumpSpeed = -50000.0f;
 	private float _currentVSpeed = 0;
 	private float _gravity = 5000.0f;
 	private bool _canJump;
@@ -121,6 +121,12 @@ public partial class Player : CharacterBody2D
 		// If player is on floor, than he can jump
 		if (IsOnFloor()){
 			// Dealling with horizontal move
+			if (_input.X != 0){
+				PlayAnim("Walking");
+			}
+			else{
+				PlayAnim("Idle");
+			}
 			_canJump = true;
 			_canDash = true;
 			_velocity.Y = 0;
@@ -157,6 +163,7 @@ public partial class Player : CharacterBody2D
 	// Function that matches the falling state
 	private void Falling(double delta)
 	{
+		
 		// In falling state, player still can move horizontaly
 		HorMove(delta);
 
@@ -231,6 +238,7 @@ public partial class Player : CharacterBody2D
 	private void OnJumpTimerTimeout()
 	{
 		// When the jump time is over, go to falling state with a inicial vSpeed
+		PlayAnim("Falling");
 		_state = state.FALLING;
 		_currentVSpeed = 1200.0f;
 	}
@@ -315,8 +323,8 @@ public partial class Player : CharacterBody2D
 	{
 		// if player press the climb button, then state will be climbing
 		if (Input.IsActionJustPressed("ui_climb") && _canClimb){
+			PlayAnim("Climbing");
 			_state = state.CLIMBING;
-			
 			_velocity.X = 0;
 		}
 	}
@@ -326,6 +334,7 @@ public partial class Player : CharacterBody2D
 	{
 		// if player press the jump button and can jump, the state will be jumping
 		if (Input.IsActionJustPressed("ui_jump") && _canJump){
+			PlayAnim("Jumping");
 			_state = state.JUMPING;
 			_canJump = false;
 			_jumpTimer.Start();

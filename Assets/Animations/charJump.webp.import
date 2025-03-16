@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckia51sex3j8f"
-path="res://.godot/imported/FirstTile.png-be0d564a7f624654f9fa4e73c02e45ae.ctex"
+uid="uid://c6juexyevhjyd"
+path="res://.godot/imported/charJump.webp-599d32c45ba12e6a133419afb8aafb4a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/FirstTile.png"
-dest_files=["res://.godot/imported/FirstTile.png-be0d564a7f624654f9fa4e73c02e45ae.ctex"]
+source_file="res://Assets/Animations/charJump.webp"
+dest_files=["res://.godot/imported/charJump.webp-599d32c45ba12e6a133419afb8aafb4a.ctex"]
 
 [params]
 

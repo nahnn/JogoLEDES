@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwurykhj3wepl"
-path="res://.godot/imported/charJump.png-f4561dc931882be3a752310c66eb6805.ctex"
+uid="uid://dvvnb1uqorsdh"
+path="res://.godot/imported/charFalling.webp-784be653449f973f192d070460e018e9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Animations/charJump.png"
-dest_files=["res://.godot/imported/charJump.png-f4561dc931882be3a752310c66eb6805.ctex"]
+source_file="res://Assets/Animations/charFalling.webp"
+dest_files=["res://.godot/imported/charFalling.webp-784be653449f973f192d070460e018e9.ctex"]
 
 [params]
 

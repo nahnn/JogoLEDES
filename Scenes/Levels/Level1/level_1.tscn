@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=4 uid="uid://bjkle43vhk8fk"]
+[gd_scene load_steps=6 format=4 uid="uid://bjkle43vhk8fk"]
 
 [ext_resource type="PackedScene" uid="uid://bn0uv3752brx4" path="res://Scenes/Player/player.tscn" id="1_uafk7"]
-[ext_resource type="PackedScene" uid="uid://00onrkpnahnl" path="res://Scenes/HealthPotion/health_potion.tscn" id="2_nlo47"]
-[ext_resource type="PackedScene" uid="uid://b1m7gwwhh1c57" path="res://Scenes/Level1/TileSet/level_1_tile.tscn" id="3_4jnnm"]
+[ext_resource type="PackedScene" uid="uid://00onrkpnahnl" path="res://Scenes/Items/HealthPotion/health_potion.tscn" id="2_nlo47"]
+[ext_resource type="PackedScene" uid="uid://b1m7gwwhh1c57" path="res://Scenes/Levels/Level1/TileSet/level_1_tile.tscn" id="3_4jnnm"]
 [ext_resource type="PackedScene" uid="uid://b46qkw4n0ykrk" path="res://Scenes/Wall/wall.tscn" id="4_d2455"]
+[ext_resource type="PackedScene" uid="uid://dm8lwad7cry0k" path="res://Scenes/Door/door.tscn" id="5_pya7d"]
 
 [node name="Level1" type="Node2D"]
 
@@ -15,6 +16,9 @@ tile_map_data = PackedByteArray("AAAAACgAAQAEACAAAAAAACkAAQAEACEAAAAAACoAAQAEACI
 [node name="Wall" parent="Walls" instance=ExtResource("4_d2455")]
 position = Vector2(852, 593)
 scale = Vector2(0.596658, 3.43525)
+
+[node name="Door" parent="." instance=ExtResource("5_pya7d")]
+position = Vector2(1319, 578)
 
 [node name="HealthPotion" parent="." instance=ExtResource("2_nlo47")]
 position = Vector2(927, 363)

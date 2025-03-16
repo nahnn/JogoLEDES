@@ -97,7 +97,7 @@ size = Vector2(22, 74)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lplxr"]
 size = Vector2(65, 120)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_mask = 10
 script = ExtResource("1_8gtv4")
 

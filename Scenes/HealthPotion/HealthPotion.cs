@@ -8,6 +8,9 @@ public partial class HealthPotion : Area2D
 	[Export] public Texture2D _icon = null;
 	[Export] public bool _isStackable = false;
 
+	// Properties
+	public float _cureAmount = 5.0f;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{

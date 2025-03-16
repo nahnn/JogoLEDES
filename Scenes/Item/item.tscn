@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://5mbk56k3yshh"]
-
-[ext_resource type="Script" path="res://Scenes/Item/Item.cs" id="1_8fisl"]
-
-[node name="Item" type="Node" groups=["Items"]]
-script = ExtResource("1_8fisl")

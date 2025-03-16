@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://bn0uv3752brx4"]
+[gd_scene load_steps=10 format=3 uid="uid://bn0uv3752brx4"]
 
 [ext_resource type="Script" path="res://Scenes/Player/Player.cs" id="1_8gtv4"]
 [ext_resource type="Texture2D" uid="uid://b5qyru5puvl2" path="res://Assets/Player/Player.png" id="1_mjpbd"]
+[ext_resource type="PackedScene" uid="uid://djpysvauuiofh" path="res://Scenes/HUD/hud.tscn" id="3_61jgf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qk2e8"]
 size = Vector2(37, 124)
@@ -147,6 +148,8 @@ drag_right_margin = 1.0
 drag_bottom_margin = 1.0
 editor_draw_limits = true
 editor_draw_drag_margin = true
+
+[node name="HUD" parent="." instance=ExtResource("3_61jgf")]
 
 [connection signal="animation_finished" from="Anim" to="." method="OnAnimAnimationFinished"]
 [connection signal="area_entered" from="WallDetector" to="." method="OnWallDetectorAreaEntered"]

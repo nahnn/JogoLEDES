@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://bw2vje3nq2n0b"]
+
+[ext_resource type="Script" path="res://Scenes/HUD/LifeBar/LifeBar.cs" id="1_abde7"]
+
+[node name="LifeBar" type="ColorRect"]
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 338.0
+offset_bottom = 46.0
+color = Color(0, 0, 0, 0.537255)
+script = ExtResource("1_abde7")
+
+[node name="Life" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -16.0
+offset_right = 61.0
+offset_bottom = 16.0
+grow_vertical = 2
+color = Color(0.98337, 0.096257, 0.314441, 1)

@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://djpysvauuiofh"]
+
+[ext_resource type="Script" path="res://Scenes/HUD/Hud.cs" id="1_480yq"]
+[ext_resource type="PackedScene" uid="uid://h5hoj0xeyvxw" path="res://Scenes/HUD/Inventory/inventory.tscn" id="1_vysom"]
+[ext_resource type="PackedScene" uid="uid://bw2vje3nq2n0b" path="res://Scenes/HUD/LifeBar/life_bar.tscn" id="2_ms8nr"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_480yq")
+
+[node name="Inventory" parent="." instance=ExtResource("1_vysom")]
+
+[node name="LifeBar" parent="." instance=ExtResource("2_ms8nr")]

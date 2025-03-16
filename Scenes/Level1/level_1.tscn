@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=4 uid="uid://bjkle43vhk8fk"]
 
 [ext_resource type="PackedScene" uid="uid://bn0uv3752brx4" path="res://Scenes/Player/player.tscn" id="1_uafk7"]
-[ext_resource type="PackedScene" uid="uid://00onrkpnahnl" path="res://Scenes/HealthPotion/health_potion.tscn" id="2_nlo47"]
+[ext_resource type="PackedScene" uid="uid://00onrkpnahnl" path="res://Scenes/Items/HealthPotion/health_potion.tscn" id="2_nlo47"]
 [ext_resource type="PackedScene" uid="uid://b1m7gwwhh1c57" path="res://Scenes/Level1/TileSet/level_1_tile.tscn" id="3_4jnnm"]
 [ext_resource type="PackedScene" uid="uid://b46qkw4n0ykrk" path="res://Scenes/Wall/wall.tscn" id="4_d2455"]
 

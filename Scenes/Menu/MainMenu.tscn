@@ -56,7 +56,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(144, 200)]
+"values": [Vector2(74, 197)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -120,7 +120,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0.3, 0.6),
 "transitions": PackedFloat32Array(0.267943, 1),
 "update": 0,
-"values": [Vector2(-300, 200), Vector2(144, 200)]
+"values": [Vector2(-300, 200), Vector2(65, 200)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -182,15 +182,15 @@ texture = ExtResource("1_t7wd6")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
-offset_left = 144.0
-offset_top = 200.0
-offset_right = 501.0
-offset_bottom = 303.0
+offset_left = 74.0
+offset_top = 197.0
+offset_right = 431.0
+offset_bottom = 300.0
 size_flags_horizontal = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_n4poc")
 theme_override_font_sizes/font_size = 89
-text = "Nome"
+text = "Tower"
 
 [node name="Label2" type="Label" parent="."]
 layout_mode = 2
@@ -202,7 +202,7 @@ size_flags_horizontal = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_n4poc")
 theme_override_font_sizes/font_size = 89
-text = "do"
+text = "of"
 
 [node name="Label3" type="Label" parent="."]
 layout_mode = 2
@@ -214,7 +214,7 @@ size_flags_horizontal = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_n4poc")
 theme_override_font_sizes/font_size = 89
-text = "Jogo"
+text = "Trials"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -239,7 +239,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_mbl81")
 theme_override_styles/normal = SubResource("StyleBoxFlat_bg05v")
 text = "Start"
 
-[node name="Settings" type="Button" parent="VBoxContainer"]
+[node name="Credits" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
@@ -251,7 +251,7 @@ theme_override_font_sizes/font_size = 36
 theme_override_styles/hover = SubResource("StyleBoxFlat_hr53b")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_mbl81")
 theme_override_styles/normal = SubResource("StyleBoxFlat_bg05v")
-text = "Settings"
+text = "Credits"
 
 [node name="Quit" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true

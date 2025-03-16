@@ -1,0 +1,96 @@
+[gd_scene load_steps=6 format=3 uid="uid://dvk45o5727iod"]
+
+[ext_resource type="Script" path="res://Scenes/Menu/Credits.cs" id="1_yy1yy"]
+[ext_resource type="FontFile" uid="uid://dt6l5aon4ibnm" path="res://Assets/Fonts/EquipmentPro.ttf" id="2_5fvd4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yr5ea"]
+bg_color = Color(0.758192, 0.758192, 0.758192, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 5
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_go5du"]
+bg_color = Color(0.201527, 0.201527, 0.201527, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 5
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v7fj3"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 5
+shadow_offset = Vector2(0, 3)
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yy1yy")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Back" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -73.0
+offset_top = 221.0
+offset_right = 73.0
+offset_bottom = 271.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_5fvd4")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/hover = SubResource("StyleBoxFlat_yr5ea")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_go5du")
+theme_override_styles/normal = SubResource("StyleBoxFlat_v7fj3")
+text = "Back
+"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -468.0
+offset_top = -151.0
+offset_right = 468.0
+offset_bottom = 282.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_5fvd4")
+theme_override_font_sizes/font_size = 40
+text = "Este jogo foi desenvolvido por José Vitor, Nathan e Pedro Neto durante a Game Jam LEDES 2025, um evento de uma semana dedicado à criação de jogos artesanais. Todo o conteúdo, incluindo arte, código e design, foi feito do zero, seguindo as diretrizes da jam. 
+Agradecemos a organização do evento e a todos que apoiaram o projeto. Obrigado por jogar!"
+horizontal_alignment = 1
+autowrap_mode = 2
+clip_text = true

@@ -30,6 +30,16 @@ public partial class Door : Area2D
 	public void GoToNextScene()
 	{
 		TransitionManager transitionManager = GetNode<TransitionManager>("/root/TransitionManager");
-		transitionManager._FadeToScene("res://Scenes/Levels/Level2/level_2.tscn");
+		// First, identify the level and depending on which level u are, chooses the next
+		string levelName = GetParent().Name;
+		switch(levelName){
+		case "Level2":
+			transitionManager._FadeToScene("res://Scenes/Menu/Credits.tscn");
+			break;
+		default:
+			transitionManager._FadeToScene("res://Scenes/Levels/Level2/level_2.tscn");
+			break;
+		}
+		
 	}
 }

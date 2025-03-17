@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://bjkle43vhk8fk"]
+[gd_scene load_steps=8 format=4 uid="uid://bjkle43vhk8fk"]
 
 [ext_resource type="PackedScene" uid="uid://limxvb3uid7p" path="res://Scenes/BackGround/background.tscn" id="1_onw5n"]
 [ext_resource type="PackedScene" uid="uid://bn0uv3752brx4" path="res://Scenes/Player/player.tscn" id="1_uafk7"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://b46qkw4n0ykrk" path="res://Scenes/Wall/wall.tscn" id="4_d2455"]
 [ext_resource type="PackedScene" uid="uid://c6bj5nff8g1xi" path="res://Scenes/Enemies/Bat/bat.tscn" id="5_iatcs"]
 [ext_resource type="PackedScene" uid="uid://dm8lwad7cry0k" path="res://Scenes/Door/door.tscn" id="5_pya7d"]
-[ext_resource type="PackedScene" uid="uid://crlkupumy2ucc" path="res://Scenes/HUD/Messages/game_over_message.tscn" id="8_bh43u"]
 
 [node name="Level1" type="Node2D"]
 
@@ -46,14 +45,3 @@ position = Vector2(859, 628)
 
 [node name="Player" parent="." instance=ExtResource("1_uafk7")]
 position = Vector2(122, 670)
-
-[node name="GameOverMessage" parent="." instance=ExtResource("8_bh43u")]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-offset_left = 640.0
-offset_top = 360.0
-offset_right = 640.0
-offset_bottom = 360.0
-grow_horizontal = 0
-grow_vertical = 0

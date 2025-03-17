@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://rpufafi1umow"]
+[gd_scene load_steps=10 format=4 uid="uid://rpufafi1umow"]
 
 [ext_resource type="PackedScene" uid="uid://limxvb3uid7p" path="res://Scenes/BackGround/background.tscn" id="1_1fngo"]
 [ext_resource type="PackedScene" uid="uid://b1m7gwwhh1c57" path="res://Scenes/Levels/Level1/TileSet/level_tile.tscn" id="1_hckna"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://dm8lwad7cry0k" path="res://Scenes/Door/door.tscn" id="4_fr8jd"]
 [ext_resource type="PackedScene" uid="uid://b46qkw4n0ykrk" path="res://Scenes/Wall/wall.tscn" id="7_cuxbw"]
 [ext_resource type="Texture2D" uid="uid://b85pw3wow6ec4" path="res://Assets/porta/PortaFechada.webp" id="9_8laml"]
-[ext_resource type="PackedScene" uid="uid://crlkupumy2ucc" path="res://Scenes/HUD/Messages/game_over_message.tscn" id="10_oc0t5"]
 
 [node name="Level2" type="Node2D"]
 
@@ -35,14 +34,14 @@ rotation = 3.14159
 scale = Vector2(2.01212, -2.05242)
 texture = ExtResource("9_8laml")
 
-[node name="Player" parent="." instance=ExtResource("1_t2kib")]
-position = Vector2(127, 648)
-
 [node name="RedAmulet" parent="." instance=ExtResource("1_q7atf")]
 position = Vector2(275, 495)
 
 [node name="Wings" parent="." instance=ExtResource("2_0ebwh")]
 position = Vector2(1146, 496)
+
+[node name="Player" parent="." instance=ExtResource("1_t2kib")]
+position = Vector2(126, 657)
 
 [node name="walls" type="Node2D" parent="."]
 
@@ -76,14 +75,3 @@ scale = Vector2(1, 11)
 [node name="Wall8" parent="walls" instance=ExtResource("7_cuxbw")]
 position = Vector2(1015, 264)
 scale = Vector2(0.68, 0.72)
-
-[node name="GameOverMessage" parent="." instance=ExtResource("10_oc0t5")]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-offset_left = 640.0
-offset_top = 360.0
-offset_right = 640.0
-offset_bottom = 360.0
-grow_horizontal = 0
-grow_vertical = 0

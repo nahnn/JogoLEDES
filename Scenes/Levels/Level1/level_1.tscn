@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=4 uid="uid://bjkle43vhk8fk"]
+[gd_scene load_steps=8 format=4 uid="uid://bjkle43vhk8fk"]
 
 [ext_resource type="PackedScene" uid="uid://bn0uv3752brx4" path="res://Scenes/Player/player.tscn" id="1_uafk7"]
 [ext_resource type="PackedScene" uid="uid://00onrkpnahnl" path="res://Scenes/Items/HealthPotion/health_potion.tscn" id="2_nlo47"]
 [ext_resource type="PackedScene" uid="uid://b1m7gwwhh1c57" path="res://Scenes/Levels/Level1/TileSet/level_1_tile.tscn" id="3_4jnnm"]
 [ext_resource type="PackedScene" uid="uid://b46qkw4n0ykrk" path="res://Scenes/Wall/wall.tscn" id="4_d2455"]
 [ext_resource type="PackedScene" uid="uid://dm8lwad7cry0k" path="res://Scenes/Door/door.tscn" id="5_pya7d"]
+[ext_resource type="PackedScene" uid="uid://c4lqmjey6qpbw" path="res://Scenes/Items/RedAmulet/red_amulet.tscn" id="6_w1485"]
+[ext_resource type="PackedScene" uid="uid://by7rrxw64r54e" path="res://Scenes/Items/Wings/wings.tscn" id="7_f03a4"]
 
 [node name="Level1" type="Node2D"]
 
@@ -37,3 +39,9 @@ position = Vector2(540, 436)
 
 [node name="Player" parent="." instance=ExtResource("1_uafk7")]
 position = Vector2(100, 478)
+
+[node name="RedAmulet" parent="." instance=ExtResource("6_w1485")]
+position = Vector2(316, 629)
+
+[node name="Wings" parent="." instance=ExtResource("7_f03a4")]
+position = Vector2(875, 634)

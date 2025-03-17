@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4lqmjey6qpbw"]
+
+[ext_resource type="Script" path="res://Scenes/Items/RedAmulet/RedAmulet.cs" id="1_nni06"]
+[ext_resource type="Texture2D" uid="uid://dq6mkhyi72484" path="res://Assets/Items/Amulets/RedAmulet.webp" id="2_yh4ip"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uqmqr"]
+radius = 33.7343
+
+[node name="RedAmulet" type="Area2D"]
+collision_layer = 8
+collision_mask = 128
+script = ExtResource("1_nni06")
+_name = "RedAmulet"
+_icon = ExtResource("2_yh4ip")
+_isStackable = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_yh4ip")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_uqmqr")

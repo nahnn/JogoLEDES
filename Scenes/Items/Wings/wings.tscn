@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://by7rrxw64r54e"]
+
+[ext_resource type="Script" path="res://Scenes/Items/Wings/Wings.cs" id="1_kjus7"]
+[ext_resource type="Texture2D" uid="uid://sxqpgu2c80f4" path="res://Assets/Items/Wing/Wing.webp" id="1_puwpw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5vv0n"]
+radius = 35.3553
+
+[node name="Wings" type="Area2D"]
+collision_layer = 8
+collision_mask = 128
+script = ExtResource("1_kjus7")
+_name = "Wings"
+_icon = ExtResource("1_puwpw")
+_isStackable = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_puwpw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5vv0n")

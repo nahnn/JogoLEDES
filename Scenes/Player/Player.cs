@@ -15,8 +15,9 @@ public partial class Player : CharacterBody2D
 
 
 	// Declaring status properties
-	private float _health = 10.0f;
+	private float _health = 3.0f;
 	private float _maxHealth = 10.0f;
+	private float _shield = 3.0f;
 	
 
 	// Declaring move properties
@@ -39,7 +40,8 @@ public partial class Player : CharacterBody2D
 	private float _currentVSpeed = 0;
 	private float _gravity = 5000.0f;
 	private bool _canJump;
-	private int _jumpCount = 1;
+	private int _currentJumpCount = 1;
+	private int _jumpCount;
 
 	// Climb state
 	private float _climbSpeed = 7500.0f;
@@ -83,6 +85,7 @@ public partial class Player : CharacterBody2D
 
 		// Setting inicial behaviors
 		_state = (int)state.MOVING;
+		_jumpCount = _currentJumpCount;
 		PlayAnim("Idle");
 		UpdateHealth();
 		
@@ -127,7 +130,7 @@ public partial class Player : CharacterBody2D
 			else{
 				PlayAnim("Idle");
 			}
-			_canJump = true;
+			_jumpCount = _currentJumpCount;
 			_canDash = true;
 			_velocity.Y = 0;
 			_currentVSpeed = 0;
@@ -157,6 +160,8 @@ public partial class Player : CharacterBody2D
 		Velocity = _velocity;	
 
 		DashInput();
+		ClimbInput();
+		JumpInput();
 		Flip();	
 	}
 
@@ -173,7 +178,10 @@ public partial class Player : CharacterBody2D
 		Velocity = _velocity;
 
 		DashInput();
+		ClimbInput();
+		JumpInput();
 		
+
 		// Back to moving state
 		if (IsOnFloor()){
 			_state = state.MOVING;
@@ -332,11 +340,18 @@ public partial class Player : CharacterBody2D
 	// Function that switches to Jump
 	private void JumpInput()
 	{
+		// if the jumps are over
+		if (_jumpCount != 0){
+			_canJump = true;
+		}
+		else{
+			_canJump = false;
+		}
 		// if player press the jump button and can jump, the state will be jumping
 		if (Input.IsActionJustPressed("ui_jump") && _canJump){
 			PlayAnim("Jumping");
 			_state = state.JUMPING;
-			_canJump = false;
+			_jumpCount -= 1;
 			_jumpTimer.Start();
 		}
 	}
@@ -361,6 +376,14 @@ public partial class Player : CharacterBody2D
 		{
 			// Matching behavior with item
 			switch(slot._name){
+				case "Wings":
+					IncreaseJumps();
+					slot.DecreaseNumber();
+					break;
+				case "RedAmulet":
+					IncreaseDefense();
+					slot.DecreaseNumber();
+					break;
 				default:
 					// default case will be the health potion case
 					IncreaseHealth();
@@ -377,8 +400,36 @@ public partial class Player : CharacterBody2D
 		if (_health < _maxHealth){
 			HealthPotion potion = new HealthPotion();
 			_health += potion._cureAmount;
+		}
+		UpdateHealth();
+	}
+
+	// Function that decreases health
+	public void DecreaseHealth(int amount)
+	{
+		// Decreasing player helth
+		var damage = (amount - _shield);
+		if (damage >= 0){
+			_health -= damage; 
 			UpdateHealth();
 		}
+	}
+
+	// Function that increases the player shield
+	private void IncreaseDefense()
+	{
+		GD.Print(_shield);
+		RedAmulet amulet = new RedAmulet();
+		_shield += amulet._increaseRatio;
+		GD.Print(_shield);
+	}
+
+	// Function that increases number of jumps
+	private void IncreaseJumps()
+	{
+		// increases the jump count when gets a wing
+		Wings wing = new Wings();
+		_currentJumpCount += wing._moreJumps;
 	}
 
 	// Function that updates health

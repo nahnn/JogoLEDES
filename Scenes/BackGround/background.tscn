@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://limxvb3uid7p"]
+
+[ext_resource type="Texture2D" uid="uid://bnmqkjkfn4lqx" path="res://Assets/Backgrounds/Background.webp" id="1_fw0ur"]
+
+[node name="Background" type="Node2D"]
+
+[node name="ParallaxLayer" type="Parallax2D" parent="."]
+scale = Vector2(2, 2)
+repeat_size = Vector2(843, 0)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer"]
+texture = ExtResource("1_fw0ur")

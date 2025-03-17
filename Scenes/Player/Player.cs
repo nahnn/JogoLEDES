@@ -84,7 +84,7 @@ public partial class Player : CharacterBody2D
 		_customSignals = GetNode<CustomSignals>("/root/CustomSignals");
 
 		// Setting inicial behaviors
-		_state = (int)state.MOVING;
+		_state = state.MOVING;
 		_jumpCount = _currentJumpCount;
 		PlayAnim("Idle");
 		UpdateHealth();
@@ -405,7 +405,7 @@ public partial class Player : CharacterBody2D
 	}
 
 	// Function that decreases health
-	public void DecreaseHealth(int amount)
+	public void DecreaseHealth(float amount)
 	{
 		// Decreasing player helth
 		var damage = (amount - _shield);

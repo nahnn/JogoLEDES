@@ -74,16 +74,42 @@ public partial class Inventory : Control
 	// Callback Function when player collect a item
 	private void OnGotItem(Area2D item)
 	{
-		// identifying item type
 		GD.Print(item.Name);
-		if (item is HealthPotion potion){
-			// Updating slots data
-			if (potion._isStackable){
-				_slots[_currentPosition].IncreaseNumber();
-			}
-			_slots[_currentPosition].GetItemName(potion._name);
-			_slots[_currentPosition].GetTexture(potion._icon);
+		// identifying item type
+		switch(item.Name){
+			case "Wings":
+				if (item is Wings wing){
+					// Updating slots data
+					if (wing._isStackable){
+						_slots[_currentPosition].IncreaseNumber();
+					}
+					_slots[_currentPosition].GetItemName(wing._name);
+					_slots[_currentPosition].GetTexture(wing._icon);
+				}
+				break;
+			case "RedAmulet":
+				if (item is RedAmulet redAmulet){
+					// Updating slots data
+					if (redAmulet._isStackable){
+						_slots[_currentPosition].IncreaseNumber();
+					}
+					_slots[_currentPosition].GetItemName(redAmulet._name);
+					_slots[_currentPosition].GetTexture(redAmulet._icon);
+				}
+				break;
+			default:
+				// Default case will be health potion
+				if (item is HealthPotion potion){
+					// Updating slots data
+					if (potion._isStackable){
+						_slots[_currentPosition].IncreaseNumber();
+					}
+					_slots[_currentPosition].GetItemName(potion._name);
+					_slots[_currentPosition].GetTexture(potion._icon);
+				}
+			break;
 		}
 	}
 	
+
 }

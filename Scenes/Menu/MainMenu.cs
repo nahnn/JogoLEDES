@@ -12,7 +12,7 @@ public partial class MainMenu : Control {
 	private void _Play()
 	{
 		TransitionManager transitionManager = GetNode<TransitionManager>("/root/TransitionManager");
-		transitionManager._FadeToScene("res://Scenes/Level1/level_1.tscn");
+        transitionManager._FadeToScene("res://Scenes/Levels/Level1/level_1.tscn");
 	}
 
 	private void _QuitGame(){

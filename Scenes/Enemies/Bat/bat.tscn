@@ -93,14 +93,14 @@ _data = {
 size = Vector2(55, 35)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xlavf"]
-size = Vector2(55, 37)
+size = Vector2(60, 39)
 
 [node name="Bat" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_tn6vi")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="Anim" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_l0owu")
 }
@@ -115,7 +115,7 @@ position = Vector2(0.5, 1.5)
 shape = SubResource("RectangleShape2D_syese")
 
 [node name="Forward" type="RayCast2D" parent="."]
-target_position = Vector2(100, 0)
+target_position = Vector2(50, 0)
 collision_mask = 2
 collide_with_areas = true
 collide_with_bodies = false
@@ -125,7 +125,7 @@ collision_layer = 16
 collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0.5, 0.5)
+position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_xlavf")
 
-[connection signal="body_entered" from="Hitbox" to="." method="OnHitboxBodyEntered"]
+[connection signal="area_entered" from="Hitbox" to="." method="OnHitboxAreaEntered"]

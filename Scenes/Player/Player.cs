@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections;
 
 public partial class Player : CharacterBody2D
 {
@@ -12,6 +13,8 @@ public partial class Player : CharacterBody2D
 		CLIMBING
 	}
 	private state _state;
+
+
 
 
 	// Declaring status properties
@@ -412,6 +415,11 @@ public partial class Player : CharacterBody2D
 		if (damage >= 0){
 			_health -= damage; 
 			UpdateHealth();
+			if (_health <= 0){
+				_customSignals.EmitSignal(CustomSignals.SignalName.Die, item);
+				QueueFree();
+			}
+			
 		}
 	}
 

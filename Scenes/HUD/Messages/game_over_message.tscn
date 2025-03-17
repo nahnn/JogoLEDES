@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://crlkupumy2ucc"]
+
+[ext_resource type="Script" path="res://Scenes/HUD/Messages/GameOverMessage.cs" id="1_8doth"]
+[ext_resource type="FontFile" uid="uid://dt6l5aon4ibnm" path="res://Assets/Fonts/EquipmentPro.ttf" id="1_n772t"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ponf5"]
+font = ExtResource("1_n772t")
+font_size = 64
+
+[node name="GameOverMessage" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8doth")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -60.0
+offset_right = 180.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0415072, 0.0415072, 0.0415072, 0.592157)
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Game Over"
+label_settings = SubResource("LabelSettings_ponf5")

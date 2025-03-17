@@ -10,7 +10,7 @@ public partial class Bat : CharacterBody2D
 	private state _state;
 
     // status properties
-    private float _strength = 3.0f;
+    private float _strength = 5.0f;
 
     // Move Properties
     private float _speed = 3000.0f;
@@ -20,15 +20,18 @@ public partial class Bat : CharacterBody2D
 
     // Child Vars
     private RayCast2D _forward;
+    private AnimationPlayer _anim;
 
     public override void _Ready()
 	{
 		// Getting childs
 		_forward = GetNode<RayCast2D>("Forward");
+        _anim = GetNode<AnimationPlayer>("Anim");
 
 		// Setting inicial behaviors
 		_state = state.MOVING;
-        
+        _velocity.X = _speed;
+        _anim.Play("Moving");
 	
 		
 	}
@@ -50,8 +53,7 @@ public partial class Bat : CharacterBody2D
     // Function that deals movement
     private void Moving(double delta)
     {
-        _velocity.X = _speed * (float)delta;
-        Velocity = _velocity;
+        Velocity = _velocity * (float)delta;;
         if (_forward.IsColliding()){
             //then flip
             Flip();
@@ -59,9 +61,9 @@ public partial class Bat : CharacterBody2D
     }
 
     // Callback function of hitbox Body entered
-    private void OnHitboxBodyEntered(Node2D body)
+    private void OnHitboxAreaEntered(Node2D body)
     {
-        if (body is Player player){
+        if (body.GetParent() is Player player){
             player.DecreaseHealth(_strength);
         }
     }

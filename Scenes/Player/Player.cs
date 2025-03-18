@@ -416,7 +416,6 @@ public partial class Player : CharacterBody2D
 			_health -= damage; 
 			UpdateHealth();
 			if (_health <= 0){
-				_customSignals.EmitSignal(CustomSignals.SignalName.Die, item);
 				QueueFree();
 			}
 			
@@ -426,10 +425,8 @@ public partial class Player : CharacterBody2D
 	// Function that increases the player shield
 	private void IncreaseDefense()
 	{
-		GD.Print(_shield);
 		RedAmulet amulet = new RedAmulet();
 		_shield += amulet._increaseRatio;
-		GD.Print(_shield);
 	}
 
 	// Function that increases number of jumps
